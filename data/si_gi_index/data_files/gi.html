@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="https://d3plus.org/js/d3.js"></script><!-- https: added -->
+<script src="https://d3plus.org/js/d3plus.js"></script><!-- https: added -->
+<div id="exports" style="width:100; height:100;">
+</div>
+
+
+<script>
+  var trade_data = [
+{"SI":47,"GI":96,"type": "Croissant","group": "Bakery Products"},
+{"SI":65,"GI":54,"type": "Cake","group": "Bakery Products"},
+{"SI":68,"GI":108,"type": "Doughnuts","group": "Bakery Products"},
+{"SI":120,"GI":46,"type": "Cookies","group": "Bakery Products"},
+{"SI":127,"GI":78,"type": "Crackers","group": "Bakery Products"}
+  ]
+  // instantiate d3plus
+  var visualization = d3plus.viz()
+    .container("#exports")
+    .data(trade_data)
+    .type("scatter")
+    .id(["type"])
+    .x("GI")
+    .y("SI")
+    // .size("SI")
+    .zoom({"scroll": true})
+    // .labels({"align": "left", "valign": "top"})
+    // .labels({"align": "middle", "valign": "top"})
+    // .labels({"align": "middle"})
+    // .height(500)
+    // .width(800)
+    // .labels({"resize": false, "font": {"size": 40}})
+    // .font({"size": 12})
+    .draw()
+</script>

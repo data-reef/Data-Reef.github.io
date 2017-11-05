@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: 'Proxima Nova', sans-serif;
+}
+
+.g-hed {
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size:22px; 
+  margin: 3px 0;
+}
+
+.g-source-bold {
+  text-align: left;
+  font-size:10px;
+  font-weight: bold; 
+}
+
+.g-source-reg {
+  text-align: left;
+  font-size:10px; 
+}
+
+.g-source {
+  margin: 10px 0;
+}
+
+.g-intro {
+  font-size: 16px;
+  margin: 0px 0px 10px 0px;
+}
+
+.states {
+  fill: #d3d3d3;
+  stroke: #ffffff;
+  stroke-linejoin: round;
+}
+
+.states-drone {
+  font-size: 8px;
+}
+
+.q0-9 { fill: #ccdcf5; }
+.q1-9 { fill: #bbd0f1; }
+.q2-9 { fill: #78a1e3; }
+.q3-9 { fill: #5689dc; }
+.q4-9 { fill: #3472d5; }
+.q5-9 { fill: #265fba; }
+.q6-9 { fill: #1f4e98; }
+.q7-9 { fill: #183c77; }
+
+#q0-9 { background-color: #ccdcf5; }
+#q1-9 { background-color: #bbd0f1; }
+#q2-9 { background-color: #78a1e3; }
+#q3-9 { background-color: #5689dc; }
+#q4-9 { background-color: #3472d5; }
+#q5-9 { background-color: #265fba; }
+#q6-9 { background-color: #1f4e98; }
+#q7-9 { background-color: #183c77; }
+
+div.tooltip {
+  position: absolute;
+  left: 75px;
+  text-align: center;
+  height: 12px;
+  padding: 8px;
+  font-size: 13px;
+  font-family: 'Proxima-Nova', sans-serif;
+  background: #FFFFFF;
+  border: 1px solid #989898;
+  pointer-events: none;
+}
+
+.block {
+  width:8%;
+  height: 10px;
+  display:inline-block;
+    font-size: 1.3vw; 
+    text-align: center;
+}
+
+</style>
+<body>
+  <h5 class="g-hed"></h5>
+  <p class="g-intro"></p>
+  <div class="g-chart"></div>
+    <div class="legend">
+    <div class="block" id="q0-9"> </div>
+    <div class="block" id="q1-9"> </div>
+    <div class="block" id="q2-9"></div>
+    <div class="block" id="q3-9"></div>
+    <div class="block" id="q4-9"></div>
+    <div class="block" id="q5-9"></div>
+    <div class="block" id="q6-9"></div>
+    <div class="block" id="q7-9"></div>
+    <div class="block" id="q8-9"></div>
+    <div class="block" id="q9-9"></div>
+  </div>
+  <div class="g-source"><span class="g-source-bold"></span><span class="g-source-reg"></span></div>
+</body>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.min.js"></script>
+
+
+
+
+<script>
+
+//Creates tooltip and makes it invisiblae
+var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+//Sets dimensions
+var margin = {top: 10, left: 10, bottom: 10, right: 10}
+  // , width = window.outerWidth
+  , width = 600
+  , width = width - margin.left - margin.right
+  , mapRatio = .5
+  , height = width * mapRatio;
+
+//Tells the nap what projection to use
+var projection = d3.geo.albersUsa()
+    .scale(width)
+    .translate([width / 2, height / 2]);
+
+//Tells the map how to draw the paths from the projection
+var path = d3.geo.path()
+    .projection(projection);
+
+//Appened svg to page
+var map = d3.select(".g-chart").append("svg")
+  .style('height', height + 'px')
+  .style('width', width + 'px');  
+
+//Load the files
+queue()
+    .defer(d3.json, "us.json")
+    .defer(d3.csv, "drones.csv")
+    .await(ready);
+
+//Moves selection to front
+d3.selection.prototype.moveToFront = function() {
+  return this.each(function(){
+    this.parentNode.appendChild(this);
+  });
+}; 
+
+//Moves selection to back
+d3.selection.prototype.moveToBack = function() { 
+  return this.each(function() { 
+  var firstChild = this.parentNode.firstChild; 
+    if (firstChild) { 
+      this.parentNode.insertBefore(this, firstChild); 
+    } 
+  }); 
+};    
+
+function ready(error, us, maptemplate) {
+  if (error) throw error;
+
+  // console.log(us, maptemplate);   
+
+  // Sets color scale
+  var numMedian = d3.median(maptemplate, function(d) { return d.num;}); 
+  console.log(numMedian);
+  var quantize = d3.scale.quantize()
+    .domain([0, 83716])
+    .range(d3.range(8).map(function(i) { return "q" + i + "-9"; }));
+   
+  //  var quantize = d3.scale.quantize()
+  // .domain([ 0, 84000 ])
+  // .range(d3.range(6).map(function(i) { return "q" + i + "-9"; }));
+
+var dom = quantize.domain(),
+    l = (dom[1] - dom[0])/quantize.range().length,
+    breaks = d3.range(0, quantize.range().length).map(function(i) { 
+console.log(i * l);   
+      return i * l; });
+
+console.log(breaks);   
+
+
+  //Pair data with state id
+  var dataByFIPS = {};
+  maptemplate.forEach(function(d) { dataByFIPS[d.FIPS] = +d.num; });
+
+  //Pair state name with state id
+  var stateByFIPS = {};
+  maptemplate.forEach(function(d) { stateByFIPS[d.FIPS] = d.state; });
+
+  //Appends chart headline
+  d3.select(".g-hed").text("Number of Drones Registrants Per State");
+
+  //Appends chart intro text
+  d3.select(".g-intro").text("FAA requiers Drone Hobbyists to register their drones");
+
+  //Append states
+  map.append("g")
+    .attr("class", "states")
+    .selectAll("path")
+    .data(topojson.feature(us, us.objects.states).features)
+    .enter().append("path")
+    .attr("d", path)
+    //Color states
+    .attr("class", function(d) { return quantize(dataByFIPS[d.id]); })
+    //Hovers
+    .on("mouseover", function(d) {
+      var sel = d3.select(this);
+        sel.moveToFront();
+      d3.select(this).transition().duration(300).style("opacity", 0.8);
+      div.transition().duration(300)
+      .style("opacity", 1)
+      div.text(stateByFIPS[d.id] + ": " + dataByFIPS[d.id])
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY -30) + "px");
+    })
+    .on("mouseout", function() {
+      var sel = d3.select(this);
+        sel.moveToBack();
+      d3.select(this)
+      .transition().duration(300)
+      .style("opacity", 1);
+      div.transition().duration(300)
+      .style("opacity", 0);
+    });
+
+    map.append("g")
+      .attr("class", "states-drone")
+      .selectAll("text")
+      .data(topojson.feature(us, us.objects.states).features)
+      .enter()
+      .append("svg:text")
+      .text(function(d){
+        return dataByFIPS[d.id];
+      })
+      .attr("x", function(d){
+          return path.centroid(d)[0];
+      })
+      .attr("y", function(d){
+          return  path.centroid(d)[1];
+      })
+      .attr("text-anchor","middle")
+      .attr('fill', 'black');
+
+
+  //Appends chart source
+  d3.select(".g-source-bold")
+    .text("SOURCE: ")
+    .attr("class", "g-source-bold");
+
+  d3.select(".g-source-reg")
+    .text("FAA")
+    .attr("class", "g-source-reg")
+    .style("text-decoration", "underline") 
+    .on("click", function() { window.open("https://www.faa.gov/foia/electronic_reading_room/"); });;    
+
+
+
+
+    //RESPONSIVENESS
+d3.select(window).on('resize', resize);
+
+
+function resize() {
+
+    var w = d3.select(".g-chart").node().clientWidth;
+    console.log("resized", w);
+
+    // adjust things when the window size changes
+    width = w - margin.left - margin.right;
+    height = width * mapRatio;
+
+    console.log(width)
+    // update projection
+    var newProjection = d3.geo.albersUsa()
+      .scale(width)
+      .translate([width / 2, height / 2]);
+
+    //Update path
+    path = d3.geo.path()
+      .projection(newProjection);      
+
+    text = d3.geo.text()
+      .projection(newProjection);    
+
+    // resize the map container
+    map
+        .style('width', width + 'px')
+        .style('height', height + 'px');
+
+    // resize the map
+    map.selectAll("path").attr('d', path);
+    // map.selectAll("text").attr('d', text);
+}
+}
+
+</script>

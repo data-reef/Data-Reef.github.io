@@ -1,0 +1,122 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+body{
+    font-family: 'Proxima Nova', sans-serif;
+
+}
+#viz .d3plus_label {
+  font-family: 'Proxima Nova', sans-serif;
+}
+
+</style>
+
+<script src="https://d3plus.org/js/d3.js"></script><!-- https: added -->
+<script src="https://d3plus.org/js/d3plus.js"></script><!-- https: added -->
+<div id="viz" style="width:1920; height:1080;">
+</div>
+
+<script>
+  var trade_data = [
+{"tonnes": 352142000,"crop": "Sugar cane"},
+{"tonnes": 157200000,"crop": "Rice, paddy"},
+{"tonnes": 95850000,"crop": "Wheat"},
+{"tonnes": 46395000,"crop": "Potatoes"},
+{"tonnes": 36838000,"crop": "Vegetables, fresh nes"},
+{"tonnes": 29724550,"crop": "Bananas"},
+{"tonnes": 23670000,"crop": "Maize"},
+{"tonnes": 20867647,"crop": "Seed cotton"},
+{"tonnes": 19401680,"crop": "Onions, dry"},
+{"tonnes": 18735910,"crop": "Tomatoes"},
+{"tonnes": 18431330,"crop": "Mangoes, mangosteens, guavas"},
+{"tonnes": 13557820,"crop": "Eggplants (aubergines)"},
+{"tonnes": 12300000,"crop": "Cottonseed"},
+{"tonnes": 11420000,"crop": "Millet"},
+{"tonnes": 11078873,"crop": "Coconuts"},
+{"tonnes": 10528000,"crop": "Soybeans"},
+{"tonnes": 9880000,"crop": "Chick peas"},
+{"tonnes": 9872000,"crop": "Fruit, fresh nes"},
+{"tonnes": 9039220,"crop": "Cabbages and other brassicas"},
+{"tonnes": 8573280,"crop": "Cauliflowers and broccoli"},
+{"tonnes": 8139430,"crop": "Cassava"},
+{"tonnes": 7877000,"crop": "Rapeseed"},
+{"tonnes": 7317610,"crop": "Oranges"},
+{"tonnes": 6557000,"crop": "Groundnuts, with shell"},
+{"tonnes": 6346370,"crop": "Okra"},
+{"tonnes": 6188000,"crop": "Cotton lint"},
+{"tonnes": 5997490,"crop": "Fruit, tropical fresh nes"},
+{"tonnes": 5639300,"crop": "Papayas"},
+{"tonnes": 5390000,"crop": "Sorghum"},
+{"tonnes": 4987123,"crop": "Pumpkins, squash and gourds"},
+{"tonnes": 4110000,"crop": "Beans, dry"},
+{"tonnes": 3868630,"crop": "Peas, green"},
+{"tonnes": 3290000,"crop": "Pigeon peas"},
+{"tonnes": 2835020,"crop": "Lemons and limes"},
+{"tonnes": 2585340,"crop": "Grapes"},
+{"tonnes": 2497680,"crop": "Apples"},
+{"tonnes": 1968000,"crop": "Jute"},
+{"tonnes": 1830000,"crop": "Barley"},
+{"tonnes": 1736740,"crop": "Pineapples"},
+{"tonnes": 1733000,"crop": "Castor oil seed"},
+{"tonnes": 1504000,"crop": "Spices, nes"},
+{"tonnes": 1492000,"crop": "Chillies and peppers, dry"},
+{"tonnes": 1252000,"crop": "Garlic"},
+{"tonnes": 1207310,"crop": "Tea"},
+{"tonnes": 1100000,"crop": "Lentils"},
+{"tonnes": 1097102,"crop": "Lettuce and chicory"},
+{"tonnes": 1087880,"crop": "Sweet potatoes"},
+{"tonnes": 1034008,"crop": "Melons, other (inc.cantaloupes)"},
+{"tonnes": 1000000,"crop": "Pulses, nes"},
+{"tonnes": 940000,"crop": "Rubber, natural"},
+{"tonnes": 811000,"crop": "Sesame seed"},
+{"tonnes": 753000,"crop": "Cashew nuts, with shell"},
+{"tonnes": 745500,"crop": "Fruit, citrus nes"},
+{"tonnes": 720725,"crop": "Tobacco, unmanufactured"},
+{"tonnes": 655000,"crop": "Ginger"},
+{"tonnes": 636103,"crop": "Beans, green"},
+{"tonnes": 622000,"crop": "Areca nuts"},
+{"tonnes": 600000,"crop": "Peas, dry"},
+{"tonnes": 584000,"crop": "Anise, badian, fennel, coriander"},
+{"tonnes": 544300,"crop": "Coir"},
+{"tonnes": 532201,"crop": "Carrots and turnips"},
+{"tonnes": 415000,"crop": "Sunflower seed"},
+{"tonnes": 411547,"crop": "Watermelons"},
+{"tonnes": 316700,"crop": "Pears"},
+{"tonnes": 304500,"crop": "Coffee, green"},
+{"tonnes": 260000,"crop": "Peaches and nectarines"},
+{"tonnes": 248500,"crop": "Grapefruit (inc. pomelos)"},
+{"tonnes": 225000,"crop": "Plums and sloes"},
+{"tonnes": 171100,"crop": "Cucumbers and gherkins"},
+{"tonnes": 141000,"crop": "Linseed"},
+{"tonnes": 113000,"crop": "Safflower seed"},
+{"tonnes": 103412,"crop": "Bastfibres, other"},
+{"tonnes": 73000,"crop": "Oilseeds nes"},
+{"tonnes": 68564,"crop": "Chillies and peppers, green"},
+{"tonnes": 51000,"crop": "Pepper (piper spp.)"},
+{"tonnes": 43000,"crop": "Walnuts, with shell"},
+{"tonnes": 28000,"crop": "Mushrooms and truffles"},
+{"tonnes": 21000,"crop": "Nutmeg, mace and cardamoms"},
+{"tonnes": 15000,"crop": "Cocoa, beans"},
+{"tonnes": 13999,"crop": "Apricots"},
+{"tonnes": 13802,"crop": "Figs"},
+{"tonnes": 10221,"crop": "Cherries"},
+{"tonnes": 2144,"crop": "Berries nes"},
+{"tonnes": 2128,"crop": "Fruit, stone nes"}
+  ]
+  // instantiate d3plus
+  var visualization = d3plus.viz()
+    .container("#viz")
+    .data(trade_data)
+    .type("tree_map")
+    .id("crop")
+    .size("tonnes")
+    // .labels({"align": "left", "valign": "top"})
+    .labels({"align": "middle", "valign": "top"})
+    // .labels({"align": "middle", "valign": "top", "resize": true})
+    // .labels({"align": "middle"})
+    .height(500)
+    .width(800)
+    // .labels({"resize": false, "font": {"size": 40}})
+    // .font({"size": 12})
+    .draw()
+</script>

@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="https://d3plus.org/js/d3.js"></script><!-- https: added -->
+<script src="https://d3plus.org/js/d3plus.js"></script><!-- https: added -->
+<div id="exports" style="width:1920; height:1080;">
+</div>
+
+
+<script>
+  var trade_data = [
+{"SI":47,"GI":96,"type": "Croissant","size": "1"},
+{"SI":65,"GI":54,"type": "Cake","size": "1"},
+{"SI":68,"GI":108,"type": "Doughnuts","size": "1"},
+{"SI":120,"GI":46,"type": "Cookies","size": "1"},
+{"SI":127,"GI":78,"type": "Crackers","size": "1"},
+{"SI":70,"GI":89,"type": "Mars candy bar","size": "1"},
+{"SI":84,"GI":19,"type": "Peanuts","size": "1"},
+{"SI":88,"GI":51,"type": "Yogurt","size": "1"},
+{"SI":113,"GI":81,"type": "Potato crisps","size": "1"},
+{"SI":96,"GI":89,"type": "Ice cream","size": "1"},
+{"SI":118,"GI":114,"type": "Jellybeans","size": "1"},
+{"SI":154,"GI":127,"type": "Popcorn","size": "1"},
+{"SI":116,"GI":77,"type": "Special K","size": "1"},
+{"SI":118,"GI":110,"type": "Cornflakes","size": "1"},
+{"SI":151,"GI":43,"type": "All-Bran","size": "1"},
+{"SI":209,"GI":60,"type": "Porridge/Oatmeal","size": "1"},
+{"SI":100,"GI":100,"type": "White bread","size": "1"},
+{"SI":116,"GI":107,"type": "French fries","size": "1"},
+{"SI":119,"GI":64,"type": "White pasta","size": "1"},
+{"SI":132,"GI":124,"type": "Brown Rice","size": "1"},
+{"SI":138,"GI":119,"type": "White rice","size": "1"},
+{"SI":154,"GI":93,"type": "Grain bread","size": "1"},
+{"SI":188,"GI":61,"type": "Brown pasta","size": "1"},
+{"SI":323,"GI":144,"type": "Potatoes, boiled","size": "1"},
+{"SI":150,"GI":0,"type": "Eggs","size": "1"},
+{"SI":168,"GI":80,"type": "Baked beans","size": "1"},
+{"SI":176,"GI":0,"type": "Beef","size": "1"},
+{"SI":225,"GI":0,"type": "Ling fish","size": "1"},
+{"SI":118,"GI":74,"type": "Bananas","size": "1"},
+{"SI":162,"GI":66,"type": "Grapes","size": "1"},
+{"SI":197,"GI":52,"type": "Apples","size": "1"},
+{"SI":202,"GI":60,"type": "Oranges","size": "1"}
+  ]
+  // instantiate d3plus
+  var visualization = d3plus.viz()
+    .container("#exports")
+    .data(trade_data)
+    .type("scatter")
+    .id("type")
+    .x({
+     "value": "GI",
+     "label": "Glymeic Index Low"})
+    .y("SI")
+    .size("size") 
+    // .labels({"align": "left", "valign": "top"})
+    // .labels({"align": "middle", "valign": "top"})
+    // .labels({"align": "middle"})
+    // .height(500)
+    // .width(800)
+    // .labels({"resize": false, "font": {"size": 40}})
+    // .font({"size": 12})
+    .draw()
+</script>

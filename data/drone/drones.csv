@@ -1,0 +1,53 @@
+state,State_Ab,FIPS,num
+District of Columbia,DC,11,650
+Wyoming,WY,56,1326
+Vermont,VT,50,1438
+North Dakota,ND,38,1797
+Delaware,DE,10,1943
+South Dakota,SD,46,2079
+Rhode Island,RI,44,2118
+Montana,MT,30,2341
+Alaska,AK,2,2558
+Maine,ME,23,2892
+New Mexico,NM,35,3204
+West Virginia,WV,54,3251
+Mississippi,Ms,28,3515
+New Hampshire,NH,33,3727
+Idaho,ID,16,3898
+Nebraska,NE,31,4212
+Arkansas,AR,5,4838
+Hawaii,HI,15,4851
+Kentucky,KY,21,6472
+Louisiana,LA,22,6517
+Nevada,NV,32,6557
+Iowa,IA,19,6898
+Kansas,KS,20,6899
+Oklahoma,OK,40,8079
+Connecticut,CT,9,8153
+Utah,UT,49,8629
+Alabama,AL,1,8813
+South Carolina,SC,45,8995
+Oregon,OR,41,10769
+Missouri,MO,29,11781
+Minnesota,MN,27,11834
+Tennessee,TN,47,12510
+Wisconsin,WI,55,12519
+Maryland,MD,24,12717
+Indiana,IN,18,12873
+Massachusetts,MA,25,13878
+Colorado,CO,8,15412
+Arizona,AZ,4,15957
+New Jersey,NJ,34,17454
+North Carolina,NC,37,18934
+Virginia,VA,51,18991
+Georgia,GA,13,19450
+Washington,WA,53,19630
+Michigan,MI,26,20233
+Ohio,OH,39,22141
+Illinois,IL,17,22558
+Pennsylvania,PA,42,24613
+New York,NY,36,32220
+Florida,FL,12,50603
+Texas,TX,48,53659
+California,CA,6,83716
+,,,661102
